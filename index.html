@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Date Fact Api</title>
+    <style type="text/css">
+      body{
+        padding: 0;
+        margin: 5rem 1rem 0 1rem;
+        box-sizing: border-box;
+      }
+      
+      
+      #container{
+        background-color: #fd0054;
+        color: #fff;
+        padding: 1.2rem 0.8rem;
+        border-radius: 8px;
+      }
+      
+      h3{
+        font-size: 22px;
+      }
+      
+      p{
+        font-size: 16px;
+      }
+      
+      .top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.8rem;
+      }
+      
+      .top input{
+        width: 45%;
+        padding: 1rem 0 1rem 0.6rem;
+        border: none;
+        border-radius: 6px;
+        outline: none;
+        margin-bottom: 0.8rem;
+      }
+      
+      
+      button{
+        border: none;
+        outline: none;
+        padding: 1rem 2rem;
+        background-color: #fff;
+        color: #fd0054;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all .4s linear;
+      }
+
+      button:hover{
+        background-color: #000;
+        color: #fff;
+      }
+      
+      #fact-box{
+        padding: 1rem 0.6rem;
+        display: none;
+      }
+      
+      #fact-box h4{
+        font-size: 20px;
+      }
+      
+      
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h3>Date Facts</h3>
+      <p>
+        Enter month and day and get a random date fact
+      </p>
+      <div class="top">
+        <input type="number" name="month" id="month" placeholder="Enter Month" />
+        
+        <input type="number" name="day" id="day" placeholder="Enter Day" />
+      </div>
+      <button id="btn" type="submit">Get Fact</button>
+      
+      <div id="fact-box">
+        <h4>Date Fact</h4>
+        <p class="fact-text"></p>
+      </div>
+    </div>
+    
+    
+    <script type="text/javascript" charset="utf-8">
+    
+    
+    
+      let inputMonth = document.querySelector("#month");
+      
+      let inputDay = document.querySelector("#day");
+      
+      
+      let btn = document.querySelector("#btn");
+      
+      
+      let factText = document.querySelector(".fact-text");
+      
+      let factBox = document.querySelector("#fact-box");
+      
+      btn.addEventListener('click', getDateFact)
+      
+      function getDateFact(){
+        let month = inputMonth.value;
+        
+        let day = inputDay.value;
+        
+        
+        fetch(`http://numbersapi.com/${month}/${day}/date`)
+        .then(response => response.text())
+        .then(data => {
+          if(month != '' && day != ''){
+          factBox.style.display = "block";
+            factText.innerText = data;
+          }
+        })
+        .catch(err => console.log(err))
+      }
+      
+    </script>
+  </body>
+</html>
